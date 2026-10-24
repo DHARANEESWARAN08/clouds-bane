@@ -1,0 +1,151 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 1rem;
+  --background: #080a19;
+  --foreground: #eef0ff;
+  --card: #12142b;
+  --card-foreground: #eef0ff;
+  --popover: #191d3b;
+  --popover-foreground: #eef0ff;
+  --primary: #8b7cff;
+  --primary-foreground: #0c0a1e;
+  --secondary: #171a38;
+  --secondary-foreground: #d5d7ef;
+  --muted: #10132a;
+  --muted-foreground: #888aa9;
+  --accent: #26215b;
+  --accent-foreground: #e8e4ff;
+  --destructive: #ff657a;
+  --destructive-foreground: #2a0810;
+  --border: rgba(140, 145, 206, 0.16);
+  --input: rgba(140, 145, 206, 0.2);
+  --ring: #8b7cff;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--background); }
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(ellipse at 82% -16%, rgba(87, 70, 210, .105), transparent 30rem),
+    radial-gradient(ellipse at 5% 78%, rgba(27, 48, 125, .075), transparent 27rem),
+    linear-gradient(180deg, #050711 0%, #070914 54%, #050710 100%);
+  color: var(--foreground);
+  font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  opacity: .18;
+  background-image: radial-gradient(rgba(255,255,255,.10) .6px, transparent .6px);
+  background-size: 5px 5px;
+  mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+button:active { transform: scale(.98); }
+*:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+@keyframes cb-fade-up { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes cb-scan { 0%, 100% { background-position: 120% 0; opacity: .2; } 50% { background-position: -20% 0; opacity: .65; } }
+.animate-enter { animation: cb-fade-up 420ms cubic-bezier(.23,1,.32,1) both; }
+.animate-delay-1 { animation-delay: 50ms; }
+.animate-delay-2 { animation-delay: 100ms; }
+.animate-delay-3 { animation-delay: 150ms; }
+.animate-delay-4 { animation-delay: 200ms; }
+
+.cb-grid {
+  background-image: linear-gradient(rgba(139,124,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(139,124,255,.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.network-grid {
+  background-image: linear-gradient(rgba(93,168,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(93,168,255,.08) 1px, transparent 1px), radial-gradient(circle at 50% 50%, rgba(93,168,255,.13), transparent 40%);
+  background-size: 36px 36px, 36px 36px, 100% 100%;
+}
+.network-surface::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(115deg, transparent 0 45%, rgba(139,124,255,.07) 50%, transparent 55% 100%);
+  background-size: 220% 100%;
+  animation: cb-scan 7s ease-in-out infinite;
+}
+.cb-panel {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(34, 35, 76, .48), rgba(9, 11, 27, .62));
+  border: 1px solid rgba(140, 145, 206, .16);
+  border-radius: 1rem;
+  box-shadow: 0 18px 55px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.045), inset 0 0 30px rgba(139,124,255,.025);
+  backdrop-filter: blur(30px) saturate(135%);
+  isolation: isolate;
+}
+.cb-panel::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(139,124,255,.13), transparent 26%);
+  opacity: .55;
+  transition: opacity 220ms ease;
+}
+.cb-panel-hover { transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease; }
+.cb-panel-hover:hover { border-color: rgba(139,124,255,.42); transform: translateY(-2px) scale(1.002); box-shadow: 0 22px 58px rgba(0,0,0,.34), 0 0 28px rgba(92,76,220,.10), 0 0 0 1px rgba(139,124,255,.05); }
+.cb-panel-hover:hover::after { opacity: 1; }
+.cb-empty { position: relative; overflow: hidden; background: linear-gradient(180deg, rgba(17, 19, 47, .42), rgba(9, 11, 27, .30)); border-radius: .75rem; backdrop-filter: blur(18px); }
+.cb-empty::after { position: absolute; inset: 0; pointer-events: none; content: ""; background: linear-gradient(105deg, transparent 42%, rgba(139,124,255,.09) 50%, transparent 58%); background-size: 220% 100%; animation: cb-scan 6s ease-in-out infinite; }
+.cb-brand-mark { box-shadow: 0 0 24px rgba(139,124,255,.16); border-radius: .8rem; }
+.cb-panel input::placeholder { color: #77799b; }
+.cb-panel table tbody tr { transition: background-color 160ms ease, box-shadow 160ms ease; }
+.cb-panel table tbody tr:hover { background: rgba(139,124,255,.045); box-shadow: inset 2px 0 0 rgba(139,124,255,.45); }
+.cb-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+.cb-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.cb-scrollbar::-webkit-scrollbar-thumb { background: rgba(140,145,206,.28); border-radius: 99px; }
+
+/* Keep the visual hierarchy compact and card-led on the dashboard. */
+.cb-panel table tr:last-child { border-bottom-color: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; scroll-behavior: auto !important; }
+}
