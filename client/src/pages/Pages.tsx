@@ -526,7 +526,7 @@ export function DashboardPage() {
         <MetricCard
           label="ML detection"
           value="Unavailable"
-          detail="Deployment state not reported"
+          detail="State not reported"
           icon={Layers3}
           accent="teal"
         />
@@ -585,7 +585,7 @@ export function DashboardPage() {
             eyebrow="DynamoDB / stored alert inventory"
             action={
               <span className="font-mono text-[9px] text-[#77799b]">
-                SOURCE: /METRICS
+                SOURCE: STORED ALERTS
               </span>
             }
           >
@@ -1736,7 +1736,7 @@ export function ModelPage() {
       <div className="grid gap-5 xl:grid-cols-[.75fr_1.25fr]">
         <section className="cb-panel p-5">
           <SectionHeader
-            eyebrow="Production registry"
+            eyebrow="Model metadata"
             title="Model intelligence"
           />
           <div className="mb-6 flex items-start justify-between gap-4">
@@ -1751,7 +1751,7 @@ export function ModelPage() {
               </p>
             </div>
             <span className="border border-[#8b7cff]/25 bg-[#8b7cff]/10 px-2.5 py-1.5 font-mono text-[9px] tracking-[.12em] text-[#b8adff]">
-              {MODEL_INFO.productionStatus.toUpperCase()}
+              DEPLOYMENT UNAVAILABLE
             </span>
           </div>
           <div className="grid grid-cols-2 gap-px border border-white/[.08] bg-white/[.08]">
@@ -1759,7 +1759,7 @@ export function ModelPage() {
               ["Version", MODEL_INFO.version],
               ["Features", MODEL_INFO.featureCount],
               ["Threshold", MODEL_INFO.threshold],
-              ["Training", MODEL_INFO.trainingStatus],
+              ["Training", "Offline validation"],
             ].map(([label, value]) => (
               <div key={label} className="bg-[#0d1b22] p-3">
                 <p className="font-mono text-[9px] uppercase tracking-[.13em] text-[#667e82]">
@@ -1914,7 +1914,7 @@ export function MlopsPage() {
             {stages.map((stage, index) => (
               <div key={stage} className="flex items-center gap-2">
                 <div
-                  className={`w-[118px] border p-3 ${stage === "Production" ? "border-[#8b7cff]/30 bg-[#8b7cff]/[.08]" : stage === "Candidate model" ? "border-[#5da8ff]/25 bg-[#5da8ff]/[.06]" : "border-white/[.08] bg-white/[.02]"}`}
+                  className={`w-[118px] border p-3 ${stage === "Candidate model" ? "border-[#5da8ff]/25 bg-[#5da8ff]/[.06]" : "border-white/[.08] bg-white/[.02]"}`}
                 >
                   <p className="mb-2 font-mono text-[9px] text-[#5e777c]">
                     {String(index + 1).padStart(2, "0")}
@@ -1936,14 +1936,14 @@ export function MlopsPage() {
       </section>
       <div className="grid gap-5 xl:grid-cols-[.72fr_1.28fr]">
         <section className="cb-panel p-5">
-          <SectionHeader eyebrow="Production registry" title="Current model" />
+          <SectionHeader eyebrow="Model metadata" title="Current model" />
           <div className="border border-[#8b7cff]/20 bg-[#8b7cff]/[.04] p-4">
             <div className="mb-5 flex items-center justify-between">
               <div className="flex h-10 w-10 items-center justify-center border border-[#8b7cff]/20 bg-[#8b7cff]/10 text-[#8b7cff]">
                 <GitBranch size={19} />
               </div>
               <span className="font-mono text-[9px] tracking-[.14em] text-[#b8adff]">
-                PRODUCTION
+                NOT REPORTED
               </span>
             </div>
             <h3 className="text-lg font-bold text-white">{MODEL_INFO.name}</h3>
@@ -1959,8 +1959,8 @@ export function MlopsPage() {
               </span>
             </div>
             <div className="flex justify-between border-b border-white/[.06] pb-3">
-              <span className="text-[#71888b]">Promotion status</span>
-              <span className="font-mono text-[#b8adff]">Approved</span>
+              <span className="text-[#71888b]">Deployment status</span>
+              <span className="font-mono text-[#b4c1c1]">Unavailable</span>
             </div>
             <div className="flex justify-between">
               <span className="text-[#71888b]">Retraining</span>
@@ -1990,10 +1990,10 @@ export function MlopsPage() {
                 Decision
               </p>
               <p className="mt-4 text-lg font-semibold text-[#e6c98f]">
-                Promotion gate idle
+                Release decision unavailable
               </p>
               <p className="mt-2 text-xs leading-5 text-[#9d8963]">
-                Production remains on the verified classifier.
+                The backend has not reported a release or deployment decision.
               </p>
             </div>
           </div>

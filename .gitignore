@@ -99,6 +99,13 @@ jspm_packages/
 # Temporary folders
 tmp/
 temp/
+output/
+
+# Private datasets and model artifacts are maintained separately
+*.parquet
+*.pkl
+*.joblib
+*.zip
 
 # Database
 *.db
