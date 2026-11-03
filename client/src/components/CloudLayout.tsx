@@ -287,8 +287,8 @@ export function MetricCard({
           <Icon size={14} />
         </div>
       </div>
-      <div className="flex items-end justify-between gap-2">
-        <div>
+      <div className="flex flex-wrap items-end justify-between gap-2">
+        <div className="min-w-0">
           <span className="block font-mono text-[21px] font-medium tracking-[-.04em] text-[#f6f5ff]">
             {empty ? "—" : value}
           </span>
@@ -299,7 +299,9 @@ export function MetricCard({
           )}
         </div>
         {detail && (
-          <span className="pb-0.5 text-[9px] text-[#8a8bab]">{detail}</span>
+          <span className="max-w-full break-words pb-0.5 text-right text-[9px] leading-3 text-[#8a8bab]">
+            {detail}
+          </span>
         )}
       </div>
     </div>
